@@ -9,10 +9,7 @@ public class ToyStoreProject {
         toyLottery.addToy(new Toy(4, "Tobot X", 10));
         toyLottery.addToy(new Toy(5, "MonsterTrack", 2));
 
-        // // Вызываем розыгрыш
-        // toyLottery.play();
-
-     
+             
         toyLottery.playAndWriteToFile("result.txt");
     }
 }
