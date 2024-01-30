@@ -1,0 +1,71 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.PriorityQueue;
+
+class Toy {
+    private int id;
+    private String name;
+    private int frequency;
+
+    public Toy(int id, String name, int frequency) {
+        this.id = id;
+        this.name = name;
+        this.frequency = frequency;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+    @Override
+    public String toString() {
+        return "Toy{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", frequency=" + frequency +
+                '}';
+    }
+}
+
+class ToyLottery {
+    private PriorityQueue<Toy> toyQueue;
+
+    public ToyLottery() {
+        toyQueue = new PriorityQueue<>((toy1, toy2) -> toy2.getFrequency() - toy1.getFrequency());
+    }
+
+    public void addToy(Toy toy) {
+        toyQueue.add(toy);
+    }
+
+    public void play() {
+        for (int i = 0; i < 10; i++) {
+            Toy drawnToy = toyQueue.poll();
+            if (drawnToy != null) {
+                System.out.println("Drawn Toy: " + drawnToy.getName());
+            }
+        }
+    }
+
+
+    public void playAndWriteToFile(String fileName) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (int i = 0; i < 10; i++) {
+                Toy drawnToy = toyQueue.poll();
+                if (drawnToy != null) {
+                    System.out.println("Drawn Toy: " + drawnToy.getName());
+                    writer.write("Drawn Toy: " + drawnToy.getName() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
